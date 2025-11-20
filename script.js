@@ -3,8 +3,9 @@ const message = document.getElementById('message');
 const nextPage = document.getElementById('nextPage');
 
 helloKitty.addEventListener('click', () => {
-    // Show the birthday message
+    // Show the birthday message with animation
     message.style.opacity = 1;
+    message.classList.add('show');
 
     // Create multiple balloons
     for (let i = 0; i < 20; i++) {
@@ -42,3 +43,4 @@ function createBalloon() {
 function goNextPage() {
     window.location.href = "nextpage.html"; // change to your next page
 }
+
