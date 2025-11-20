@@ -36,14 +36,48 @@ body {
     100% { transform: translateY(-800px) scale(1.2); opacity: 0; }
 }
 
+/* Birthday Message */
 #message {
     position: absolute;
     top: 40%;
     text-align: center;
-    font-size: 2em;
+    font-size: 2.5em;
     color: #ff3399;
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 0.5s;
+}
+
+/* Animation for message */
+#message.show {
+    animation: bounceColor 2s infinite alternate;
+}
+
+@keyframes bounceColor {
+    0% {
+        transform: scale(1);
+        color: #ff3399;
+        text-shadow: 0 0 5px #ff3399;
+    }
+    25% {
+        transform: scale(1.1);
+        color: #ff66b3;
+        text-shadow: 0 0 10px #ff66b3;
+    }
+    50% {
+        transform: scale(1.2);
+        color: #ff99cc;
+        text-shadow: 0 0 15px #ff99cc;
+    }
+    75% {
+        transform: scale(1.1);
+        color: #ff66b3;
+        text-shadow: 0 0 10px #ff66b3;
+    }
+    100% {
+        transform: scale(1);
+        color: #ff3399;
+        text-shadow: 0 0 5px #ff3399;
+    }
 }
 
 /* Next Page Button */
@@ -62,6 +96,11 @@ body {
     opacity: 0;
     transition: opacity 1s;
 }
+
+#nextPage:hover {
+    background-color: #ff66b3;
+}
+
 
 #nextPage:hover {
     background-color: #ff66b3;
