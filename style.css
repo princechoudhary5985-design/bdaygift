@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffe6f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    position: relative;
+}
+
+#helloKitty {
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#helloKitty:hover {
+    transform: scale(1.1);
+}
+
+.balloon {
+    position: absolute;
+    bottom: -100px;
+    width: 50px;
+    height: 70px;
+    border-radius: 50% 50% 50% 50%;
+    opacity: 0.9;
+    animation: rise 5s ease-in forwards;
+}
+
+@keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-800px) scale(1.2); opacity: 0; }
+}
+
+#message {
+    position: absolute;
+    top: 40%;
+    text-align: center;
+    font-size: 2em;
+    color: #ff3399;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+/* Next Page Button */
+#nextPage {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 30px;
+    font-size: 1.2em;
+    background-color: #ff3399;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#nextPage:hover {
+    background-color: #ff66b3;
+}
