@@ -41,6 +41,6 @@ function createBalloon() {
 
 // Go to next page (replace URL with your actual next page)
 function goNextPage() {
-    window.location.href = "nextpage.html"; // change to your next page
+    window.location.href = "page2.html"; // change to your next page
 }
 
