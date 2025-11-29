@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mini Game</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(to bottom right, #fbc2eb, #a6c1ee);
+            font-family: "Poppins", sans-serif;
+            text-align: center;
+        }
+
+        h2 {
+            color: white;
+            font-size: 32px;
+            margin-top: 20px;
+            animation: fadeIn 1.2s ease;
+        }
+
+        .count {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        #balloon-area {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 60px;
+            cursor: pointer;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh); }
+            100% { transform: translateY(-250px); }
+        }
+
+        /* Fullscreen video overlay */
+        #videoScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #specialVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Pop All 10 Balloons 🎈</h2>
+    <p class="count">Popped: <span id="popped">0</span> / 10</p>
+
+    <div id="balloon-area"></div>
+
+    <!-- Fullscreen video -->
+    <div id="videoScreen">
+        <video id="specialVideo" src="video.mp4"></video>
+    </div>
+
+    <script>
+        let popped = 0;
+
+        function createBalloons() {
+            const area = document.getElementById("balloon-area");
+
+            for (let i = 0; i < 10; i++) {
+                let b = document.createElement("img");
+                b.src = "balloon.png";  // your balloon image
+                b.classList.add("balloon");
+
+                b.style.left = Math.random() * 90 + "%";
+                b.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
+                b.addEventListener("click", () => {
+                    b.remove();
+                    popped++;
+                    document.getElementById("popped").innerText = popped;
+
+                    if (popped === 10) {
+                        startVideo();
+                    }
+                });
+
+                area.appendChild(b);
+            }
+        }
+
+        createBalloons();
+
+        function startVideo() {
+            document.getElementById("videoScreen").style.display = "flex";
+            
+            let vid = document.getElementById("specialVideo");
+            vid.play();
+
+            vid.onended = function() {
+                window.location.href = "page3.html";
+            };
+        }
+    </script>
+
+</body>
+</html>
