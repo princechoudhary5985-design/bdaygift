@@ -525,47 +525,6 @@
         }
     }
 
-    // --- Birthday clock ---
-    // Counts time since 10 Dec 2005 and updates #clock element every second.
-    (function setupBirthdayClock() {
-        // Create target date: 10 Dec 2005 at 00:00:00
-        var birthday = new Date(2005, 11, 10, 0, 0, 0); // month is 0-based: 11 = December
-
-        function pad(n) { return n < 10 ? '0' + n : n; }
-
-        function updateClock() {
-            var now = new Date();
-            var diff = Math.floor((now - birthday) / 1000); // difference in seconds
-
-            if (diff < 0) {
-                // If the birthday is in the future (shouldn't be here), show zeros
-                document.getElementById('clock') && (document.getElementById('clock').innerText = "0 days 00 hours 00 minutes 00 seconds");
-                return;
-            }
-
-            var days = Math.floor(diff / (3600 * 24));
-            diff -= days * 3600 * 24;
-
-            var hours = Math.floor(diff / 3600);
-            diff -= hours * 3600;
-
-            var minutes = Math.floor(diff / 60);
-            diff -= minutes * 60;
-
-            var seconds = diff;
-
-            var clockEl = document.getElementById('clock');
-            if (clockEl) {
-                clockEl.innerText = days + " days " + pad(hours) + " hours " + pad(minutes) + " minutes " + pad(seconds) + " seconds";
-            }
-        }
-
-        // update immediately and then every second
-        updateClock();
-        setInterval(updateClock, 1000);
-    })();
-    // --- end birthday clock ---
-
     window.random = random;
     window.bezier = bezier;
     window.Point = Point;
