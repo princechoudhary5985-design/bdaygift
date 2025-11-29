@@ -3,7 +3,7 @@ body {
   padding: 0;
   background-image: url('../img2.png');
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat:center;
   font-size: 14px;
   font-family: sans-serif;
   color: white;
