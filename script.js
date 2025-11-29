@@ -40,7 +40,7 @@ function createBalloon() {
 }
 
 
-function goNextPage(page2.html) {
+function goNextPage() {
     window.location.href = "page2.html";
 }
 
