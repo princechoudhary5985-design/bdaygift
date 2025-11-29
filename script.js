@@ -39,8 +39,8 @@ function createBalloon() {
     });
 }
 
-// Go to next page (replace URL with your actual next page)
-function goNextPage() {
-    window.location.href = "page2.html"; // change to your next page
+
+function goNextPage(page2.html) {
+    window.location.href = "page2.html";
 }
 
