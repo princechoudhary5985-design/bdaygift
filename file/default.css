@@ -4,7 +4,7 @@ body {
   background-image: url('../img2.png');
   background-size: cover;
   background-repeat:center;
-  font-size: 14px;
+  font-size: 50px;
   font-family: sans-serif;
   color: white;
   overflow: auto;
@@ -80,7 +80,7 @@ a {
 #message-box{
   position: absolute;
   margin-top:450px;
-  font-size: 25px;
+  font-size: 50px;
   font-family: monospace;
 
 }
