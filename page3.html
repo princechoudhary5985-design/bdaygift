@@ -194,20 +194,32 @@ function updateBasketDOM(){
   basketEl.style.left = (basket.x) + 'px';
 }
 
-/* ---------- Draw cat (emoji) ---------- */
+/* ---------- Cat image setup ---------- */
+const catImg = new Image();
+catImg.src = "kitty.png";
+let catImgLoaded = false;
+catImg.onload = () => { catImgLoaded = true; };
+catImg.onerror = () => { catImgLoaded = false; console.warn('kitty.png failed to load — fallback to emoji will be used.'); }
+
+/* ---------- Draw cat (image or fallback emoji) ---------- */
 function drawCat(x,y,size,alpha){
   ctx.save();
   ctx.globalAlpha = alpha;
-  // use emoji as text (works on modern browsers)
-  ctx.font = (size) + 'px serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('🐱', x, y + size*0.25); // vertical offset to center emoji visually
+  if(catImgLoaded){
+    // draw centered on (x,y)
+    ctx.drawImage(catImg, x - size/2, y - size/2, size, size);
+  } else {
+    // fallback to emoji (in case image not available)
+    ctx.font = (size) + 'px serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('🐱', x, y + size*0.25);
+  }
   ctx.restore();
 }
 
 /* ---------- Game loop ---------- */
 function createCat(){
-  const size = Math.floor(rand(26,48));
+  const size = Math.floor(rand(26,56));
   const x = rand(30, W-30);
   const y = -rand(20,140);
   const speed = rand(1.6,3.4);
@@ -232,7 +244,6 @@ function loop(now){
   }
 
   ctx.clearRect(0,0,W,H);
-  // draw background soft bokeh (optional)
   // update and draw cats
   for(let i=cats.length-1;i>=0;i--){
     const c = cats[i];
