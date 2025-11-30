@@ -11,7 +11,7 @@
 
   <style>
     body {
-      background-color: #f0e6f6; 
+      background-color: #f0e6f6;
       font-family: "Dancing Script", cursive;
     }
 
@@ -135,18 +135,10 @@
       transform-origin: 100% 100%;
     }
 
-    .close .heart {
-      opacity: 0;
-    }
+    .close .heart { opacity: 0; }
 
-    @keyframes slideUp {
-      0% { top: 0; }
-      100% { top: -600px; }
-    }
-    @keyframes sideSway {
-      0% { margin-left: 0px; }
-      100% { margin-left: 50px; }
-    }
+    @keyframes slideUp { 0% { top: 0; } 100% { top: -600px; } }
+    @keyframes sideSway { 0% { margin-left: 0px; } 100% { margin-left: 50px; } }
 
     .a1 {
       left: 20%;
@@ -177,7 +169,8 @@
       margin-top: 20px;
     }
 
-    .reset button {
+    .reset button,
+    .next-btn {
       font-weight: 800;
       transition: all 0.1s linear;
       background-color: transparent;
@@ -190,9 +183,12 @@
       padding: 10px;
       min-width: 120px;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .reset button:hover {
+    .reset button:hover,
+    .next-btn:hover {
       background-color: #d9534f;
       color: #fff;
     }
@@ -224,6 +220,8 @@
   <div class="reset">
     <button id="open">Open</button>
     <button id="reset">Close</button>
+    <br>
+    <a class="next-btn" href="page5.html">Next Page →</a>
   </div>
 
   <script>
