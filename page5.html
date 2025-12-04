@@ -1,120 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Page 5</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom, #ffecd2, #fcb69f);
-      overflow: hidden;
-      font-family: 'Arial', sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Page 5</title>
+<style>
+  /* BODY & BACKGROUND */
+  body {
+    margin: 0;
+    padding: 0;
+    /* Use local kitty background image */
+    background: url('images/kitty-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+  }
 
-    /* Music controls */
-    #music {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 1000;
-    }
+  /* MUSIC CONTROLS */
+  #music {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+  }
 
-    /* Rolling cassette/CD container */
-    .cassette-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 250px;
-      height: 250px;
-      animation: spin 5s linear infinite;
-    }
+  /* CASSETTE CONTAINER */
+  .cassette-container {
+    position: absolute;
+    top: 50%;
+    width: 200px;
+    height: 200px;
+    animation: moveCassette 12s ease-in-out infinite alternate;
+    transform: translateY(-50%);
+    z-index: 500;
+  }
 
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
+  /* CASSETTE */
+  .cassette {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    /* Initial default cover */
+    background: url('images/default-cover.jpg') no-repeat center/cover;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 40px rgba(255,182,193,0.6) inset;
+    border: 5px solid #fff;
+    animation: spin 3s linear infinite;
+  }
 
-    .cassette {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: url('https://tse4.mm.bing.net/th/id/OIP.hqvvlv5FleVWQwEQ_WcPKQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3') no-repeat center/cover;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
-    /* Photos */
-    .photo {
-      position: absolute;
-      border-radius: 15px;
-      object-fit: cover;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      transition: transform 0.5s;
-    }
+  @keyframes moveCassette {
+    0% { left: -220px; transform: translateY(-50%) rotate(0deg);}
+    50% { left: 50%; transform: translateX(-50%) translateY(-50%) rotate(180deg);}
+    100% { left: 100vw; transform: translateY(-50%) rotate(360deg);}
+  }
 
-    .photo:hover {
-      transform: scale(1.2) rotate(10deg);
-      z-index: 999;
-    }
+  /* PHOTOS */
+  .photo {
+    position: absolute;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.5s, box-shadow 0.5s;
+    cursor: pointer;
+  }
 
-    /* Big photos */
-    .big {
-      width: 150px;
-      height: 150px;
-    }
+  .photo:hover {
+    transform: scale(1.3) rotate(10deg);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    z-index: 999;
+  }
 
-    /* Small photos */
-    .small {
-      width: 100px;
-      height: 100px;
-    }
+  .big { width: 150px; height: 150px; }
+  .small { width: 100px; height: 100px; }
 
-  </style>
+  /* CONFETTI */
+  .confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    opacity: 0.7;
+    border-radius: 50%;
+    animation: fall 5s linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg);}
+    100% { transform: translateY(100vh) rotate(360deg);}
+  }
+</style>
 </head>
 <body>
 
-  <!-- Music -->
-  <audio id="music" controls autoplay loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+<!-- MUSIC -->
+<audio id="music" controls autoplay loop>
+  <!-- Local MP3 file -->
+  <source src="audio/song.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
 
-  <!-- Cassette/CD -->
-  <div class="cassette-container">
-    <div class="cassette"></div>
-  </div>
+<!-- CASSETTE -->
+<div class="cassette-container">
+  <div class="cassette" id="cassette"></div>
+</div>
 
-  <!-- Photos -->
-  <img src="big1.png" class="photo big">
-  <img src="big2.png" class="photo big">
-  <img src="big3.png" class="photo big">
-  <img src="small1.png" class="photo small">
-  <img src="small2.png" class="photo small">
-  <img src="small3.png" class="photo small">
+<!-- PHOTOS -->
+<img src="images/big1.jpg" id="big1" class="photo big">
+<img src="images/big2.jpg" id="big2" class="photo big">
+<img src="images/big3.jpg" id="big3" class="photo big">
+<img src="images/small1.jpg" id="small1" class="photo small">
+<img src="images/small2.jpg" id="small2" class="photo small">
+<img src="images/small3.jpg" id="small3" class="photo small">
 
-  <script>
-    // Randomize photo positions
-    const photos = document.querySelectorAll('.photo');
+<script>
+  // RANDOMIZE PHOTO POSITIONS
+  const photos = document.querySelectorAll('.photo');
+  function randomizePhotos() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    photos.forEach(photo => {
+      const photoWidth = photo.offsetWidth;
+      const photoHeight = photo.offsetHeight;
+      const x = Math.random() * (width - photoWidth);
+      const y = Math.random() * (height - photoHeight);
+      photo.style.left = x + 'px';
+      photo.style.top = y + 'px';
+    });
+  }
+  window.addEventListener('resize', randomizePhotos);
+  randomizePhotos();
 
-    function randomizePhotos() {
-      const width = window.innerWidth;
-      const height = window.innerHeight;
+  // SET LOCAL SONG COVER ON CASSETTE
+  const cassette = document.getElementById('cassette');
+  const songCover = 'images/song-cover.jpg'; // put your cover in images folder
+  cassette.style.backgroundImage = `url(${songCover})`;
 
-      photos.forEach(photo => {
-        const photoWidth = photo.offsetWidth;
-        const photoHeight = photo.offsetHeight;
-        const x = Math.random() * (width - photoWidth);
-        const y = Math.random() * (height - photoHeight);
-        photo.style.left = x + 'px';
-        photo.style.top = y + 'px';
-      });
-    }
+  // ADD CONFETTI
+  for(let i=0; i<30; i++){
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.animationDuration = (2 + Math.random()*3) + 's';
+    confetti.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
+    document.body.appendChild(confetti);
+  }
+</script>
 
-    window.addEventListener('resize', randomizePhotos);
-    randomizePhotos();
-  </script>
 </body>
 </html>
-
