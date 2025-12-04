@@ -10,16 +10,7 @@
     padding: 0;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
-  }
-
-  /* MUSIC CONTROLS */
-  #music {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1000;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    background: #f0f0f0;
   }
 
   /* BACKGROUND KITTY IMAGE */
@@ -33,30 +24,14 @@
     z-index: -1;
   }
 
-  /* CASSETTE / VINYL IMAGE (bottom center, no movement) */
-  #cassette-container {
+  /* MUSIC */
+  #music {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 200px;
-    z-index: 500;
-  }
-
-  #cassette {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    animation: spin 3s linear infinite;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 40px rgba(255,182,193,0.6) inset;
-    border: 5px solid #fff;
-  }
-
-  @keyframes spin {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
+    top: 15px;
+    left: 15px;
+    z-index: 1000;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
   }
 
   /* PHOTOS */
@@ -65,8 +40,8 @@
     border-radius: 15px;
     object-fit: cover;
     box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    transition: transform 0.5s, box-shadow 0.5s;
     cursor: pointer;
+    transition: transform 0.5s, box-shadow 0.5s;
   }
 
   .photo:hover {
@@ -78,7 +53,7 @@
   .big { width: 150px; height: 150px; }
   .small { width: 100px; height: 100px; }
 
-  /* FULLSCREEN PHOTO VIEW */
+  /* FULLSCREEN PHOTO */
   .fullscreen {
     position: fixed !important;
     top: 50% !important;
@@ -92,48 +67,51 @@
     transition: all 0.5s ease;
   }
 
-  /* CONFETTI */
-  .confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    opacity: 0.7;
-    border-radius: 50%;
-    animation: fall 5s linear infinite;
+  /* BUTTONS */
+  #exit-btn, #next-btn {
+    position: fixed;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.8);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+    z-index: 3000;
   }
 
-  @keyframes fall {
-    0% { transform: translateY(-50px) rotate(0deg);}
-    100% { transform: translateY(100vh) rotate(360deg);}
-  }
+  #exit-btn { top: 20px; right: 20px; display: none; }
+  #next-btn { top: 20px; right: 120px; }
+
 </style>
 </head>
 <body>
 
 <!-- BACKGROUND KITTY IMAGE -->
-<img src="kittybg.jpg" id="bg-img" alt="Background Kitty">
+<img src="kittyss.png" id="bg-img" alt="Background Kitty">
 
 <!-- MUSIC -->
-<audio id="music" controls autoplay loop>
-  <source src="songss.mp3" type="audio/mpeg">
+<audio id="music" autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
-<!-- CASSETTE / VINYL IMAGE (bottom center) -->
-<div id="cassette-container">
-  <img src="song1cover.jpg" id="cassette" alt="Cassette Cover">
-</div>
-
 <!-- PHOTOS -->
-<img src="big1.png" id="big1" class="photo big">
-<img src="big2.png" id="big2" class="photo big">
-<img src="big3.png" id="big3" class="photo big">
-<img src="small1.png" id="small1" class="photo small">
-<img src="small2.png" id="small2" class="photo small">
-<img src="small3.png" id="small3" class="photo small">
+<img src="big1.png" class="photo big">
+<img src="big2.png" class="photo big">
+<img src="big3.png" class="photo big">
+<img src="small1.png" class="photo small">
+<img src="small2.png" class="photo small">
+<img src="small3.png" class="photo small">
+
+<!-- BUTTONS -->
+<button id="exit-btn">Exit</button>
+<button id="next-btn">Next Page</button>
 
 <script>
   const photos = document.querySelectorAll('.photo');
+  const exitBtn = document.getElementById('exit-btn');
+  const nextBtn = document.getElementById('next-btn');
 
   // RANDOMIZE PHOTO POSITIONS
   function randomizePhotos() {
@@ -151,26 +129,26 @@
   window.addEventListener('resize', randomizePhotos);
   randomizePhotos();
 
-  // ADD CONFETTI
-  for(let i=0; i<30; i++){
-    const confetti = document.createElement('div');
-    confetti.classList.add('confetti');
-    confetti.style.left = Math.random() * window.innerWidth + 'px';
-    confetti.style.animationDuration = (2 + Math.random()*3) + 's';
-    confetti.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
-    document.body.appendChild(confetti);
-  }
-
-  // PHOTO CLICK TO FULLSCREEN
+  // PHOTO CLICK -> FULLSCREEN
   photos.forEach(photo => {
     photo.addEventListener('click', () => {
-      // Reset all photos
       photos.forEach(p => p.classList.remove('fullscreen'));
-
-      // Make clicked photo fullscreen
       photo.classList.add('fullscreen');
+      exitBtn.style.display = 'block';
     });
   });
+
+  // EXIT BUTTON
+  exitBtn.addEventListener('click', () => {
+    photos.forEach(p => p.classList.remove('fullscreen'));
+    exitBtn.style.display = 'none';
+  });
+
+  // NEXT PAGE BUTTON
+  nextBtn.addEventListener('click', () => {
+    window.location.href = 'page6.html'; // change to your next page URL
+  });
+
 </script>
 
 </body>
