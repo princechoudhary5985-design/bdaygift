@@ -10,7 +10,7 @@
     margin: 0;
     padding: 0;
     /* Use local kitty background image */
-    background: url('images/kitty-background.jpg') no-repeat center center fixed;
+    background: url('sskittybg.png') no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
@@ -43,7 +43,7 @@
     height: 100%;
     border-radius: 50%;
     /* Initial default cover */
-    background: url('images/default-cover.jpg') no-repeat center/cover;
+    background: url('vinyl.png') no-repeat center/cover;
     box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 40px rgba(255,182,193,0.6) inset;
     border: 5px solid #fff;
     animation: spin 3s linear infinite;
@@ -100,7 +100,7 @@
 <!-- MUSIC -->
 <audio id="music" controls autoplay loop>
   <!-- Local MP3 file -->
-  <source src="audio/song.mp3" type="audio/mpeg">
+  <source src="screenshot.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
@@ -110,12 +110,12 @@
 </div>
 
 <!-- PHOTOS -->
-<img src="images/big1.jpg" id="big1" class="photo big">
-<img src="images/big2.jpg" id="big2" class="photo big">
-<img src="images/big3.jpg" id="big3" class="photo big">
-<img src="images/small1.jpg" id="small1" class="photo small">
-<img src="images/small2.jpg" id="small2" class="photo small">
-<img src="images/small3.jpg" id="small3" class="photo small">
+<img src="big1.png" id="big1" class="photo big">
+<img src="big2.png" id="big2" class="photo big">
+<img src="big3.png" id="big3" class="photo big">
+<img src="small1.png" id="small1" class="photo small">
+<img src="small2.png" id="small2" class="photo small">
+<img src="small3.png" id="small3" class="photo small">
 
 <script>
   // RANDOMIZE PHOTO POSITIONS
@@ -137,7 +137,7 @@
 
   // SET LOCAL SONG COVER ON CASSETTE
   const cassette = document.getElementById('cassette');
-  const songCover = 'images/song-cover.jpg'; // put your cover in images folder
+  const songCover = 'song-cover1.jpg'; // put your cover in images folder
   cassette.style.backgroundImage = `url(${songCover})`;
 
   // ADD CONFETTI
