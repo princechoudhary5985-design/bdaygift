@@ -3,152 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Page 5</title>
+<title>Birthday Page 6</title>
 <style>
   body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
     font-family: 'Arial', sans-serif;
-    background: #f0f0f0;
+    background: #ffe0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 
-  /* BACKGROUND KITTY IMAGE */
-  #bg-img {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-  }
-
-  /* MUSIC */
-  #music {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1000;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-  }
-
-  /* PHOTOS */
-  .photo {
-    position: absolute;
+  /* SCROLLABLE CONTAINER */
+  .scroll-container {
+    width: 80vw;
+    height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 15px;
-    object-fit: cover;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-    cursor: pointer;
-    transition: transform 0.5s, box-shadow 0.5s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    line-height: 1.6;
+    font-size: 18px;
+    color: #333;
   }
 
-  .photo:hover {
-    transform: scale(1.3) rotate(10deg);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-    z-index: 999;
-  }
-
-  .big { width: 150px; height: 150px; }
-  .small { width: 100px; height: 100px; }
-
-  /* FULLSCREEN PHOTO */
-  .fullscreen {
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    width: 80vw !important;
-    height: 80vh !important;
-    transform: translate(-50%, -50%) !important;
-    border-radius: 0 !important;
-    z-index: 2000 !important;
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
-    transition: all 0.5s ease;
-  }
-
-  /* BUTTONS */
-  #exit-btn, #next-btn {
+  /* BACK BUTTON */
+  #back-btn {
     position: fixed;
+    top: 20px;
+    left: 20px;
     padding: 10px 20px;
-    background: rgba(255,255,255,0.8);
-    border: none;
     border-radius: 8px;
-    cursor: pointer;
+    border: none;
+    background: #ff99cc;
+    color: #fff;
     font-size: 16px;
+    cursor: pointer;
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
-    z-index: 3000;
+    z-index: 1000;
   }
-
-  #exit-btn { top: 20px; right: 20px; display: none; }
-  #next-btn { top: 20px; right: 120px; }
 
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND KITTY IMAGE -->
-<img src="kittyss.png" id="bg-img" alt="Background Kitty">
+<button id="back-btn">Back</button>
 
-<!-- MUSIC -->
-<audio id="music" autoplay loop>
-  <source src="song.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+<div class="scroll-container">
+  <p>
+    Hey… I know we never really talked like this before,  
+    but today feels special and I wanted to tell you…  
+    You’ve always been amazing in ways I haven’t said,  
+    and I hope you feel as special as you really are.  
 
-<!-- PHOTOS -->
-<img src="big1.png" class="photo big">
-<img src="big2.png" class="photo big">
-<img src="big3.png" class="photo big">
-<img src="small1.png" class="photo small">
-<img src="small2.png" class="photo small">
-<img src="small3.png" class="photo small">
+    Life’s funny sometimes, and maybe we never had  
+    the chance to open up fully… until now.  
+    I just wanted to let you know, even in these little words,  
+    that I’ve noticed the little things, your smile, your laugh,  
+    the way you make ordinary moments brighter.  
 
-<!-- BUTTONS -->
-<button id="exit-btn">Exit</button>
-<button id="next-btn">Next Page</button>
+    Happy Birthday! I hope this day brings you all the joy  
+    and surprises you deserve… and maybe a little  
+    adventure too 😉  
+
+    <br><br>
+    I know we might not have talked much in the past,  
+    but today I wanted to share these words from my heart.  
+    I hope this message makes you smile and feel appreciated.  
+
+    Wishing you a wonderful birthday and a year ahead  
+    full of happiness, laughter, and amazing memories!  
+  </p>
+</div>
 
 <script>
-  const photos = document.querySelectorAll('.photo');
-  const exitBtn = document.getElementById('exit-btn');
-  const nextBtn = document.getElementById('next-btn');
-
-  // RANDOMIZE PHOTO POSITIONS
-  function randomizePhotos() {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    photos.forEach(photo => {
-      const photoWidth = photo.offsetWidth;
-      const photoHeight = photo.offsetHeight;
-      const x = Math.random() * (width - photoWidth);
-      const y = Math.random() * (height - photoHeight);
-      photo.style.left = x + 'px';
-      photo.style.top = y + 'px';
-    });
-  }
-  window.addEventListener('resize', randomizePhotos);
-  randomizePhotos();
-
-  // PHOTO CLICK -> FULLSCREEN
-  photos.forEach(photo => {
-    photo.addEventListener('click', () => {
-      photos.forEach(p => p.classList.remove('fullscreen'));
-      photo.classList.add('fullscreen');
-      exitBtn.style.display = 'block';
-    });
+  const backBtn = document.getElementById('back-btn');
+  backBtn.addEventListener('click', () => {
+    window.history.back(); // goes back to previous page
   });
-
-  // EXIT BUTTON
-  exitBtn.addEventListener('click', () => {
-    photos.forEach(p => p.classList.remove('fullscreen'));
-    exitBtn.style.display = 'none';
-  });
-
-  // NEXT PAGE BUTTON
-  nextBtn.addEventListener('click', () => {
-    window.location.href = 'page6.html'; // change to your next page URL
-  });
-
 </script>
 
 </body>
