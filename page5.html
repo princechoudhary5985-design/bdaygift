@@ -14,90 +14,143 @@ body{
     animation:bgPulse 10s infinite alternate ease-in-out;
 }
 
-/* dreamy background breathing animation */
 @keyframes bgPulse{
     0%{filter:brightness(100%) saturate(100%);}
     100%{filter:brightness(115%) saturate(130%);}
 }
 
-/* ————— FLOATING IMAGE STYLE ————— */
+/* ————— FLOATING IMAGES ————— */
 .float{
     position:absolute;
     border-radius:18px;
-    filter:drop-shadow(0 0 20px rgba(255,130,170,0.8));
+    filter:drop-shadow(0 0 18px rgba(255,130,170,.9));
     opacity:0;
+    cursor:pointer;
     animation:
-        fadeIn 2.5s forwards,
-        floatY 12s infinite ease-in-out alternate,
-        floatX 18s infinite linear,
-        subtleSpin 14s infinite ease-in-out alternate;
-    transition:transform .5s;
+        fadeIn 2.4s forwards,
+        floatY 11s infinite ease-in-out alternate,
+        floatX 17s infinite linear,
+        spin 12s infinite ease alternate;
+    transition:.4s;
 }
 
-/* hover — little glowing bloom */
 .float:hover{
-    transform:scale(1.12) rotate(2deg);
-    filter:drop-shadow(0 0 35px rgba(255,90,150,1));
+    transform:scale(1.12);
+    filter:drop-shadow(0 0 30px rgba(255,90,150,1));
 }
 
-/* SIZES */
-.big{ width:290px; animation-duration:20s; }
-.small{ width:170px; animation-duration:14s; }
+/* SIZES — desktop default */
+.big{ width:290px; }
+.small{ width:170px; }
 
-/* Animations */
-@keyframes fadeIn{
-    0%{opacity:0; transform:scale(.8);}
-    100%{opacity:1; transform:scale(1);}
+/* float effects */
+@keyframes fadeIn{0%{opacity:0;transform:scale(.85);}100%{opacity:1;transform:scale(1);}}
+@keyframes floatY{0%{transform:translateY(-15px);}100%{transform:translateY(30px);}}
+@keyframes floatX{0%{left:-20%;}100%{left:120%;}}
+@keyframes spin{0%{transform:rotate(-2deg);}100%{transform:rotate(2deg);}}
+
+/* ————— FULLSCREEN VIEW ————— */
+#lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(6px);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
 }
-@keyframes floatY{
-    0%{transform:translateY(-20px);}
-    100%{transform:translateY(35px);}
+
+#lightbox img{
+    max-width:90%;
+    max-height:90vh;
+    border-radius:20px;
+    box-shadow:0 0 35px rgba(255,95,150,.9);
+    animation:zoom .45s ease;
 }
-@keyframes floatX{
-    0%{left:-15%;}
-    100%{left:115%;}
-}
-@keyframes subtleSpin{
-    0%{transform:rotate(-3deg);}
-    100%{transform:rotate(3deg);}
-}
+
+@keyframes zoom{0%{transform:scale(.4);opacity:0;}100%{transform:scale(1);opacity:1;}}
 
 /* ————— NEXT BUTTON ————— */
 .nextBtn{
     position:fixed;
-    bottom:30px;
-    right:35px;
+    bottom:25px;
+    right:30px;
     padding:14px 32px;
     background:#ff72b2;
-    color:white;
+    color:#fff;
     border:none;
     font-size:1.35rem;
     font-weight:bold;
-    border-radius:32px;
-    letter-spacing:1px;
+    border-radius:30px;
     cursor:pointer;
     box-shadow:0 0 25px rgba(255,105,180,.7);
-    transition:.4s;
+    transition:.3s;
 }
 .nextBtn:hover{
     transform:scale(1.15) translateY(-3px);
     background:#ff539b;
 }
+
+/* ————— MOBILE RESPONSIVENESS ————— */
+@media (max-width:768px){
+    .big{ width:200px; }   /* reduce for better fit */
+    .small{ width:120px; }
+    body{ overflow-x:hidden; }
+
+    /* slower drift for mobile so images don’t fly too fast */
+    .float{
+        animation:
+            fadeIn 2s forwards,
+            floatY 10s infinite ease-in-out alternate,
+            floatX 22s infinite linear,
+            spin 10s infinite alternate;
+    }
+
+    /* place button more reachable */
+    .nextBtn{
+        bottom:18px;
+        right:18px;
+        font-size:1.1rem;
+        padding:12px 26px;
+    }
+}
+
+@media (max-width:460px){
+    .big{ width:150px; }
+    .small{ width:95px; }
+    #lightbox img{ max-width:95%; }
+}
 </style>
 </head>
 <body>
 
-<!-- ——— BIG (3) ——— -->
-<img src="big1.png" class="float big" style="top:12%; animation-delay:0s;">
-<img src="big2.png" class="float big" style="top:48%; animation-delay:1.5s;">
-<img src="big3.png" class="float big" style="top:78%; animation-delay:3s;">
+<!-- LARGE — 3 -->
+<img src="big1.png"  class="float big" style="top:12%;animation-delay:.2s;">
+<img src="big2.png"  class="float big" style="top:46%;animation-delay:1.4s;">
+<img src="big3.png"  class="float big" style="top:74%;animation-delay:3s;">
 
-<!-- ——— SMALL (3) ——— -->
-<img src="small1.png" class="float small" style="top:28%; animation-delay:.8s;">
-<img src="small2.png" class="float small" style="top:58%; animation-delay:2.4s;">
-<img src="small3.png" class="float small" style="top:85%; animation-delay:4s;">
+<!-- SMALL — 3 -->
+<img src="small1.png" class="float small" style="top:24%;animation-delay:.9s;">
+<img src="small2.png" class="float small" style="top:56%;animation-delay:2.2s;">
+<img src="small3.png" class="float small" style="top:83%;animation-delay:4s;">
+
+<!-- FULLSCREEN POPUP -->
+<div id="lightbox" onclick="this.style.display='none'">
+    <img id="lightImg">
+</div>
 
 <button class="nextBtn" onclick="location.href='page6.html'">Next ➜</button>
+
+
+<script>
+document.querySelectorAll(".float").forEach(img=>{
+    img.addEventListener("click",()=>{
+        document.getElementById("lightImg").src = img.src;
+        document.getElementById("lightbox").style.display="flex";
+    });
+});
+</script>
 
 </body>
 </html>
