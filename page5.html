@@ -1,227 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Page 5 – Memories</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Page 5</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffecd2, #fcb69f);
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
 
-<style>
+    /* Music controls */
+    #music {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+    }
 
-/* 🔹 Hello Kitty Background */
-body{
-    background:url("kitty.jpg"); /* <- add your wallpaper here */
-    background-size:cover;
-    background-attachment:fixed;
-    font-family:sans-serif;
-    overflow-x:hidden;
-}
+    /* Rolling cassette/CD container */
+    .cassette-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 250px;
+      height: 250px;
+      animation: spin 5s linear infinite;
+    }
 
-/* 🔹 Floating screenshots grid */
-.gallery{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:20px;
-    padding:40px 10px;
-}
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
 
-/* Large */
-.img-big{
-    width:240px;
-    height:360px;
-    border-radius:12px;
-    animation:float1 5s infinite ease-in-out;
-    cursor:pointer;
-    object-fit:cover;
-}
+    .cassette {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: url('https://i.postimg.cc/L4C6gTtF/cd.png') no-repeat center/cover;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
 
-/* Small */
-.img-small{
-    width:160px;
-    height:230px;
-    border-radius:10px;
-    animation:float2 6s infinite ease-in-out;
-    cursor:pointer;
-    object-fit:cover;
-}
+    /* Photos */
+    .photo {
+      position: absolute;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: transform 0.5s;
+    }
 
-/* Hover subtle glow */
-img:hover{
-    transform:scale(1.05);
-    box-shadow:0 0 18px pink;
-    transition:.3s;
-}
+    .photo:hover {
+      transform: scale(1.2) rotate(10deg);
+      z-index: 999;
+    }
 
-/* Floating animation */
-@keyframes float1{
-    0%{transform:translateY(-4px);}
-    50%{transform:translateY(8px);}
-    100%{transform:translateY(-4px);}
-}
-@keyframes float2{
-    0%{transform:translateY(6px);}
-    50%{transform:translateY(-8px);}
-    100%{transform:translateY(6px);}
-}
+    /* Big photos */
+    .big {
+      width: 150px;
+      height: 150px;
+    }
 
-/* ---------- FULLSCREEN IMAGE VIEW ---------- */
-#viewer{
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.8);
-    backdrop-filter:blur(8px);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-}
-#viewer img{
-    width:90%;
-    max-width:600px;
-    border-radius:15px;
-    box-shadow:0 0 40px hotpink;
-}
-.close-view{
-    position:absolute;
-    top:20px; right:30px;
-    font-size:32px;
-    font-weight:bold;
-    color:white;
-    cursor:pointer;
-}
+    /* Small photos */
+    .small {
+      width: 100px;
+      height: 100px;
+    }
 
-/* 🔥 Cassette Music Player */
-.tape-player{
-    position:fixed;
-    bottom:85px;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    z-index:999;
-}
-
-.album-cover{
-    width:150px;
-    height:150px;
-    border-radius:14px;
-    object-fit:cover;
-    box-shadow:0 0 20px #ff9ad6;
-    margin-bottom:12px;
-}
-
-.cassette{
-    width:220px;
-    height:120px;
-    background:#ffbfdc;
-    border-radius:12px;
-    box-shadow:0 0 18px rgba(255,140,200,.75);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:30px;
-}
-
-.reel{
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    border:6px solid #fff;
-    border-top-color:#ff55b3;
-    border-bottom-color:#ff55b3;
-    animation:spin 1.8s linear infinite;
-}
-
-.reel.paused{ animation-play-state:paused; }
-
-@keyframes spin{
-    from{transform:rotate(0);}
-    to{transform:rotate(360deg);}
-}
-
-/* Mobile Layout */
-@media(max-width:700px){
-    .img-big{width:170px;height:260px;}
-    .img-small{width:120px;height:180px;}
-    .album-cover{width:120px;height:120px;}
-    .cassette{width:190px;height:100px;padding:22px;}
-    .reel{width:40px;height:40px;}
-}
-
-</style>
+  </style>
 </head>
-
 <body>
 
-<!-- 🔹 SCREENSHOTS -->
-<div class="gallery">
+  <!-- Music -->
+  <audio id="music" controls autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
-    <!-- BIG (3) -->
-    <img class="img-big" src="big1.png">
-    <img class="img-big" src="big2.png">
-    <img class="img-big" src="big3.png">
+  <!-- Cassette/CD -->
+  <div class="cassette-container">
+    <div class="cassette"></div>
+  </div>
 
-    <!-- SMALL (3) -->
-    <img class="img-small" src="small1.png">
-    <img class="img-small" src="small2.png">
-    <img class="img-small" src="small3.png">
+  <!-- Photos -->
+  <img src="big1.png" class="photo big">
+  <img src="big2.png" class="photo big">
+  <img src="big3.png" class="photo big">
+  <img src="small1.png" class="photo small">
+  <img src="small2.png" class="photo small">
+  <img src="small3.png" class="photo small">
 
-</div>
+  <script>
+    // Randomize photo positions
+    const photos = document.querySelectorAll('.photo');
 
+    function randomizePhotos() {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
 
-<!-- 🔹 FULLSCREEN VIEWER -->
-<div id="viewer">
-    <span class="close-view" onclick="closeView()">×</span>
-    <img id="view-img">
-</div>
+      photos.forEach(photo => {
+        const photoWidth = photo.offsetWidth;
+        const photoHeight = photo.offsetHeight;
+        const x = Math.random() * (width - photoWidth);
+        const y = Math.random() * (height - photoHeight);
+        photo.style.left = x + 'px';
+        photo.style.top = y + 'px';
+      });
+    }
 
-
-<!-- 🔹 CASSETTE MUSIC PLAYER -->
-<div class="tape-player">
-    <img class="album-cover" src="cover.jpg"> <!-- your song cover -->
-    <div class="cassette">
-        <div class="reel reel-left"></div>
-        <div class="reel reel-right"></div>
-    </div>
-</div>
-
-<audio id="music" src="music.mp3" autoplay loop></audio> <!-- replace with your song -->
-
-
-<script>
-
-/* IMAGE CLICK → FULL SCREEN */
-const viewer = document.getElementById("viewer");
-const viewerImg = document.getElementById("view-img");
-
-document.querySelectorAll("img").forEach(img=>{
-    img.addEventListener("click",()=>{
-        viewer.style.display="flex";
-        viewerImg.src=img.src;
-        music.pause();  // pause song when viewing
-    });
-});
-
-function closeView(){
-    viewer.style.display="none";
-    music.play();
-}
-
-/* MUSIC + CASSETTE REELS ANIMATION */
-let music = document.getElementById("music");
-let reels = document.querySelectorAll(".reel");
-
-function sync(){
-    reels.forEach(r=> music.paused ? r.classList.add("paused") : r.classList.remove("paused"));
-}
-
-music.addEventListener("play",sync);
-music.addEventListener("pause",sync);
-sync();
-
-</script>
-
+    window.addEventListener('resize', randomizePhotos);
+    randomizePhotos();
+  </script>
 </body>
 </html>
+
