@@ -5,13 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Birthday Page 5</title>
 <style>
-  /* BODY & BACKGROUND */
   body {
     margin: 0;
     padding: 0;
-    /* Use local kitty background image */
-    background: url('sskittybg.png') no-repeat center center fixed;
-    background-size: cover;
     overflow: hidden;
     font-family: 'Arial', sans-serif;
   }
@@ -26,38 +22,41 @@
     box-shadow: 0 5px 10px rgba(0,0,0,0.3);
   }
 
-  /* CASSETTE CONTAINER */
-  .cassette-container {
-    position: absolute;
-    top: 50%;
+  /* BACKGROUND KITTY IMAGE */
+  #bg-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  /* CASSETTE / VINYL IMAGE (bottom center, no movement) */
+  #cassette-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 200px;
     height: 200px;
-    animation: moveCassette 12s ease-in-out infinite alternate;
-    transform: translateY(-50%);
     z-index: 500;
   }
 
-  /* CASSETTE */
-  .cassette {
+  #cassette {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    /* Initial default cover */
-    background: url('vinyl.webp') no-repeat center/cover;
+    object-fit: cover;
+    animation: spin 3s linear infinite;
     box-shadow: 0 15px 30px rgba(0,0,0,0.4), 0 0 40px rgba(255,182,193,0.6) inset;
     border: 5px solid #fff;
-    animation: spin 3s linear infinite;
   }
 
   @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  @keyframes moveCassette {
-    0% { left: -220px; transform: translateY(-50%) rotate(0deg);}
-    50% { left: 50%; transform: translateX(-50%) translateY(-50%) rotate(180deg);}
-    100% { left: 100vw; transform: translateY(-50%) rotate(360deg);}
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
   }
 
   /* PHOTOS */
@@ -79,6 +78,20 @@
   .big { width: 150px; height: 150px; }
   .small { width: 100px; height: 100px; }
 
+  /* FULLSCREEN PHOTO VIEW */
+  .fullscreen {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    width: 80vw !important;
+    height: 80vh !important;
+    transform: translate(-50%, -50%) !important;
+    border-radius: 0 !important;
+    z-index: 2000 !important;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    transition: all 0.5s ease;
+  }
+
   /* CONFETTI */
   .confetti {
     position: absolute;
@@ -97,16 +110,18 @@
 </head>
 <body>
 
+<!-- BACKGROUND KITTY IMAGE -->
+<img src="kittybg.jpg" id="bg-img" alt="Background Kitty">
+
 <!-- MUSIC -->
 <audio id="music" controls autoplay loop>
-  <!-- Local MP3 file -->
-  <source src="screenshot.mp3" type="audio/mpeg">
+  <source src="songss.mp3" type="audio/mpeg">
   Your browser does not support the audio element.
 </audio>
 
-<!-- CASSETTE -->
-<div class="cassette-container">
-  <div class="cassette" id="cassette"></div>
+<!-- CASSETTE / VINYL IMAGE (bottom center) -->
+<div id="cassette-container">
+  <img src="song1cover.jpg" id="cassette" alt="Cassette Cover">
 </div>
 
 <!-- PHOTOS -->
@@ -118,8 +133,9 @@
 <img src="small3.png" id="small3" class="photo small">
 
 <script>
-  // RANDOMIZE PHOTO POSITIONS
   const photos = document.querySelectorAll('.photo');
+
+  // RANDOMIZE PHOTO POSITIONS
   function randomizePhotos() {
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -135,11 +151,6 @@
   window.addEventListener('resize', randomizePhotos);
   randomizePhotos();
 
-  // SET LOCAL SONG COVER ON CASSETTE
-  const cassette = document.getElementById('cassette');
-  const songCover = 'song-cover1.jpg'; // put your cover in images folder
-  cassette.style.backgroundImage = `url(${songCover})`;
-
   // ADD CONFETTI
   for(let i=0; i<30; i++){
     const confetti = document.createElement('div');
@@ -149,6 +160,17 @@
     confetti.style.background = `hsl(${Math.random()*360}, 80%, 60%)`;
     document.body.appendChild(confetti);
   }
+
+  // PHOTO CLICK TO FULLSCREEN
+  photos.forEach(photo => {
+    photo.addEventListener('click', () => {
+      // Reset all photos
+      photos.forEach(p => p.classList.remove('fullscreen'));
+
+      // Make clicked photo fullscreen
+      photo.classList.add('fullscreen');
+    });
+  });
 </script>
 
 </body>
