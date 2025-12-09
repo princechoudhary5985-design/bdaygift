@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Edits Gallery</title>
+<title>Edits Viewer</title>
+
 <style>
     body{
-        margin:0;
         background:black;
         color:white;
-        font-family:Arial, sans-serif;
+        margin:0;
         display:flex;
         flex-direction:column;
-        align-items:center;
         justify-content:center;
+        align-items:center;
         height:100vh;
+        font-family:Arial;
         overflow:hidden;
     }
-
     #viewer{
         width:80vw;
         height:70vh;
@@ -28,84 +28,74 @@
         justify-content:center;
         overflow:hidden;
     }
-
-    #viewer img, #viewer video{
+    #viewer video,#viewer img{
         width:100%;
         height:100%;
         object-fit:contain;
     }
-
     .controls{
+        margin-top:20px;
         display:flex;
-        gap:25px;
-        margin-top:18px;
+        gap:20px;
     }
-
     button{
         padding:10px 25px;
         font-size:18px;
-        background:white;
+        background:#ff87c5;
+        color:black;
         border:none;
         border-radius:6px;
         cursor:pointer;
-        transition:0.3s;
     }
     button:hover{
-        background:#ff9bd2;
-        color:black;
+        background:#ffc7e9;
     }
 </style>
 </head>
+
 <body>
 
-<div id="viewer"></div>
+<div id="viewer">
+
+    <!-- 🔥 EDITS HERE (you may add/remove) -->
+    
+    <video class="edit" src="edit1.mp4" controls autoplay></video>
+    <video class="edit" src="edit2.mp4" controls style="display:none"></video>
+    <img   class="edit" src="edit3.png" style="display:none">
+    <video class="edit" src="edit4.mp4" controls style="display:none"></video>
+    <img   class="edit" src="edit5.png" style="display:none">
+    <video class="edit" src="edit6.mp4" controls style="display:none"></video>
+
+</div>
 
 <div class="controls">
-    <button onclick="prevEdit()">⬅ Previous</button>
-    <button onclick="nextEdit()">Next ➡</button>
+    <button onclick="prev()">⬅ Prev</button>
+    <button onclick="next()">Next ➡</button>
 </div>
 
 <script>
-/* 🔥 CHANGE only these src values to your file names 🔥 */
-/* If your files are next to html, just put name like below */
-/* If your files are inside folder "edits/", put edits/filename */
-
-let edits = [
-    {src:"edit1.mp4"},
-    {src:"edit2.mp4"},
-    {src:"edit3.mp4"},
-    {src:"edit4.mp4"},
-    {src:"edit5.mp4"},
-    {src:"edit6.mp4"}
-];
-
+let edits = document.querySelectorAll(".edit");
 let current = 0;
-showEdit();
 
-function showEdit(){
-    let viewer = document.getElementById("viewer");
-    let file = edits[current].src;
-    viewer.innerHTML = "";
-
-    if(file.endsWith(".mp4")){
-        viewer.innerHTML = `<video src="${file}" autoplay controls loop></video>`;
-    } else {
-        viewer.innerHTML = `<img src="${file}">`;
-    }
+function showEdit(i){
+    edits.forEach((e,j)=>e.style.display = j===i ? "block" : "none");
 }
 
-function nextEdit(){
-    if(current < edits.length - 1){
-        current++; showEdit();
+function next(){
+    if(current < edits.length-1){
+        current++;
+        showEdit(current);
     }
 }
-function prevEdit(){
+function prev(){
     if(current > 0){
-        current--; showEdit();
+        current--;
+        showEdit(current);
     }
 }
+
+showEdit(0);
 </script>
 
 </body>
 </html>
-
