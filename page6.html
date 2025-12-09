@@ -1,1 +1,111 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>Edits Gallery</title> <style> body{ margin:0; background:black; color:white; font-family:Arial, sans-serif; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; overflow:hidden; /* prevents page scroll */ } #viewer{ width:80vw; height:70vh; background:#111; border:3px solid white; border-radius:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; } #viewer img, #viewer video{ width:100%; height:100%; object-fit:contain; } .controls{ margin-top:20px; display:flex; gap:20px; } button{ padding:10px 25px; font-size:18px; background:white; border:none; border-radius:6px; cursor:pointer; transition:0.3s; } button:hover{ background:#ff9bd2; color:black; } #nextPage{ display:none; /* shown only at edit 15 */ margin-top:20px; padding:12px 30px; background:#ff4daa; color:white; font-size:20px; } </style> </head> <body> <div id="viewer"></div> <div class="controls"> <button onclick="prevEdit()">⬅ Previous</button> <button onclick="nextEdit()">Next ➡</button> </div> <button id="nextPage" onclick="location.href='page7.html'">Next Page ➜</button> <script> /* ADD 15 EDIT FILES HERE ↓ (png, jpg, mp4 anything) */ let edits = [ "edit1.mp4","edit2.mp4","edit3.mp4","edit4.mp4","edit5.mp4", "edit6.mp4" ]; /* START */ let current = 0; showEdit(); function showEdit(){ let viewer = document.getElementById("viewer"); let file = edits[current]; viewer.innerHTML = ""; if(file.endsWith(".mp4")){ viewer.innerHTML = <video src="${file}" controls autoplay></video>; } else { viewer.innerHTML = <img src="${file}">; } document.getElementById("nextPage").style.display = (current === edits.length-1) ? "block" : "none"; } function nextEdit(){ if(current < edits.length-1){ current++; showEdit(); } } function prevEdit(){ if(current > 0){ current--; showEdit(); } } </script> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Edits Gallery</title>
+<style>
+    body{
+        margin:0;
+        background:black;
+        color:white;
+        font-family:Arial, sans-serif;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        height:100vh;
+        overflow:hidden;
+    }
+
+    #viewer{
+        width:80vw;
+        height:70vh;
+        background:#111;
+        border:3px solid white;
+        border-radius:10px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        overflow:hidden;
+    }
+
+    #viewer img, #viewer video{
+        width:100%;
+        height:100%;
+        object-fit:contain;
+    }
+
+    .controls{
+        display:flex;
+        gap:25px;
+        margin-top:18px;
+    }
+
+    button{
+        padding:10px 25px;
+        font-size:18px;
+        background:white;
+        border:none;
+        border-radius:6px;
+        cursor:pointer;
+        transition:0.3s;
+    }
+    button:hover{
+        background:#ff9bd2;
+        color:black;
+    }
+</style>
+</head>
+<body>
+
+<div id="viewer"></div>
+
+<div class="controls">
+    <button onclick="prevEdit()">⬅ Previous</button>
+    <button onclick="nextEdit()">Next ➡</button>
+</div>
+
+<script>
+/* 🔥 CHANGE only these src values to your file names 🔥 */
+/* If your files are next to html, just put name like below */
+/* If your files are inside folder "edits/", put edits/filename */
+
+let edits = [
+    {src:"edit1.mp4"},
+    {src:"edit2.mp4"},
+    {src:"edit3.mp4"},
+    {src:"edit4.mp4"},
+    {src:"edit5.mp4"},
+    {src:"edit6.mp4"}
+];
+
+let current = 0;
+showEdit();
+
+function showEdit(){
+    let viewer = document.getElementById("viewer");
+    let file = edits[current].src;
+    viewer.innerHTML = "";
+
+    if(file.endsWith(".mp4")){
+        viewer.innerHTML = `<video src="${file}" autoplay controls loop></video>`;
+    } else {
+        viewer.innerHTML = `<img src="${file}">`;
+    }
+}
+
+function nextEdit(){
+    if(current < edits.length - 1){
+        current++; showEdit();
+    }
+}
+function prevEdit(){
+    if(current > 0){
+        current--; showEdit();
+    }
+}
+</script>
+
+</body>
+</html>
+
