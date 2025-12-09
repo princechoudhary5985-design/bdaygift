@@ -2,117 +2,91 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Edits Gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Gallery</title>
+
 <style>
-    body{
-        margin:0;
-        background:black;
-        color:white;
-        font-family:Arial, sans-serif;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        height:100vh;
-        overflow:hidden; /* prevents page scroll */
+    body {
+        margin: 0;
+        background: #ffb6d9; 
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        overflow: hidden;
     }
 
-    #viewer{
-        width:80vw;
-        height:70vh;
-        background:#111;
-        border:3px solid white;
-        border-radius:10px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        overflow:hidden;
+    h1 { margin-top: 20px; font-size: 24px; }
+
+    .gallery-box {
+        width: 90%;
+        height: 430px;
+        background: white;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        margin-top: 20px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.2);
     }
 
-    #viewer img, #viewer video{
-        width:100%;
-        height:100%;
-        object-fit:contain;
+    .gallery-box img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
-    .controls{
-        margin-top:20px;
-        display:flex;
-        gap:20px;
+    .btn-area {
+        margin-top: 25px;
+        display: flex;
+        gap: 20px;
     }
 
-    button{
-        padding:10px 25px;
-        font-size:18px;
-        background:white;
-        border:none;
-        border-radius:6px;
-        cursor:pointer;
-        transition:0.3s;
+    button {
+        background: hotpink;
+        color: white;
+        padding: 15px 25px;
+        border: none;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        transition: 0.2s;
     }
 
-    button:hover{ background:#ff9bd2; color:black; }
-
-    #nextPage{
-        display:none; /* shown only at edit 15 */
-        margin-top:20px;
-        padding:12px 30px;
-        background:#ff4daa;
-        color:white;
-        font-size:20px;
-    }
+    button:active { transform: scale(0.9); }
 </style>
+
 </head>
 <body>
 
-<div id="viewer"></div>
+<h1>💗 Your Birthday Edits 💗</h1>
 
-<div class="controls">
-    <button onclick="prevEdit()">⬅ Previous</button>
-    <button onclick="nextEdit()">Next ➡</button>
+<div class="gallery-box">
+    <img id="editImage" src="edit1.png">
 </div>
 
-<button id="nextPage" onclick="location.href='page7.html'">Next Page ➜</button>
+<div class="btn-area">
+    <button onclick="prev()">⟵ Previous</button>
+    <button onclick="next()">Next ⟶</button>
+</div>
 
 <script>
-/* ADD 15 EDIT FILES HERE ↓ (png, jpg, mp4 anything) */
-let edits = [
-    "edit1.mp4","edit2.mp4","edit3.mp4","edit4.mp4","edit5.mp4",
-    "edit6.mp4"
-];
+    let edits = ["edit1.png","edit2.png","edit3.png","edit4.png","edit5.png","edit6.png"];
+    let i = 0;
 
-/* START */
-let current = 0;
-showEdit();
-
-function showEdit(){
-    let viewer = document.getElementById("viewer");
-    let file = edits[current];
-    viewer.innerHTML = "";
-
-    if(file.endsWith(".mp4")){
-        viewer.innerHTML = `<video src="${file}" controls autoplay></video>`;
-    } else {
-        viewer.innerHTML = `<img src="${file}">`;
+    function next(){
+        i = (i+1) % edits.length;
+        document.getElementById("editImage").src = edits[i];
     }
 
-    document.getElementById("nextPage").style.display =
-        (current === edits.length-1) ? "block" : "none";
-}
-
-function nextEdit(){
-    if(current < edits.length-1){
-        current++;
-        showEdit();
+    function prev(){
+        i = (i-1+edits.length) % edits.length;
+        document.getElementById("editImage").src = edits[i];
     }
-}
-
-function prevEdit(){
-    if(current > 0){
-        current--;
-        showEdit();
-    }
-}
 </script>
 
 </body>
